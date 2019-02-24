@@ -1,0 +1,74 @@
+{% set name = "osqp" %}
+{% set version = "0.4.1" %}
+# XXX Update submodule versions when the main version ticks too!
+#     The bot doesn't know how to do that yet.
+{% set osqp_tag = "a5af44da9da6ac9c0207ec907e70a28d54fe0df1" %}
+{% set qdldl_tag = "7ab0fca4777e5bd8203d7b36baef6c59523b0036" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  - url: https://github.com/oxfordcontrol/osqp-python/archive/v{{ version }}.tar.gz
+    fn: osqp-python-{{ version }}.tar.gz
+    sha256: 76ac8dad5d994d6e22d84ab5ff030e88a1b327144527118c4e7ae0bc03a9fcd6
+  - url: https://github.com/oxfordcontrol/osqp/archive/{{ osqp_tag }}.tar.gz
+    fn: osqp-{{ osqp_tag }}.tar.gz
+    sha256: 2a068d00f2a20ee2a2ff1ad92a32c3b1e5ef8480b4188426d11e59292ca3633d
+    folder: osqp_sources
+  - url: https://github.com/oxfordcontrol/qdldl/archive/{{ qdldl_tag }}.tar.gz
+    fn: qdldl-{{ qdldl_tag }}.tar.gz
+    sha256: 5eef3d53a57e18835376e81df59084069b47ae090a876dae223502526b87a961
+    folder: osqp_sources/lin_sys/direct/qdldl/qdldl_sources
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - cmake
+  host:
+    - python
+    - setuptools
+    - mkl-devel  # [blas_impl == "mkl"]
+    - openblas-devel  # [blas_impl == "openblas"]
+    - numpy
+  run:
+    - python
+    - {{ pin_compatible('numpy') }}
+    - scipy >=0.13.2
+    - future
+
+test:
+  imports:
+    - osqp
+    - osqp.codegen
+    - osqppurepy
+  requires:
+    - pytest
+  commands:
+    # codegen interface requires compiler + cmake
+    # want to make sure other stuff works without it...
+    - python -m pytest --pyargs osqp.tests -k 'not codegen_'
+
+about:
+  home: https://osqp.org/
+  license: Apache-2.0
+  license_family: Apache
+  license_file: LICENSE
+  summary: 'Python interface for OSQP, the Operator Splitting QP Solver'
+  description: |
+    Python interface for OSQP, the Operator Splitting QP Solver.
+
+    To use the `codegen` interface, install `cmake` and an appropriate
+    compiler version. (We don't install this by default.)
+  doc_url: https://osqp.org/
+  dev_url: http://github.com/oxfordcontrol/osqp-python
+
+extra:
+  recipe-maintainers:
+    - dougalsutherland
