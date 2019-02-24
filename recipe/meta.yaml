@@ -47,6 +47,7 @@ test:
   imports:
     - osqp
     - osqp.codegen
+    - osqp.tests
     - osqppurepy
   requires:
     - pytest
