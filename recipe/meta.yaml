@@ -53,7 +53,7 @@ test:
   commands:
     # codegen interface requires compiler + cmake
     # want to make sure other stuff works without it...
-    - python -m pytest --pyargs osqp.tests -k 'not codegen_'
+    - python -m pytest --pyargs osqp.tests -k 'not codegen'
 
 about:
   home: https://osqp.org/
