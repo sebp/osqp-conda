@@ -15,4 +15,4 @@ Conda package for osqp
     :alt: CircleCI
 
 This repository contains the `conda <https://conda.io/docs/user-guide/tasks/build-packages/>`_
-recipe for `scs <https://pypi.org/project/osqp/>`_.
+recipe for `osqp <https://pypi.org/project/osqp/>`_.
