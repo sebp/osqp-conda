@@ -10,7 +10,7 @@ source:
     fn: osqp-python-{{ version }}.tar.gz
     sha256: 6061c34745a152c143c4d0875aeaa01042e7e383f41ffbdffbe06a55f5a7caeb
   - url: https://github.com/oxfordcontrol/osqp/archive/v{{ version }}.tar.gz
-    fn: osqp-{{ osqp_tag }}.tar.gz
+    fn: osqp-{{ version }}.tar.gz
     sha256: e0932d1f7bc56dbe526bee4a81331c1694d94c570f8ac6a6cb413f38904e0f64
     folder: osqp_sources
   - url: https://github.com/oxfordcontrol/qdldl/archive/v{{ qdldl_version }}.tar.gz
