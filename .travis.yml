@@ -7,6 +7,7 @@ osx_image: xcode8.3
 # Set BINSTAR_TOKEN
 env:
     matrix:
+        - CONFIG=osx_py35
         - CONFIG=osx_py36
         - CONFIG=osx_py37
     global:
