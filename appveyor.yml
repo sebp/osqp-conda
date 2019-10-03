@@ -4,6 +4,8 @@
 environment:
   # see https://www.appveyor.com/docs/build-environment/#python
   matrix:
+    - CONFIG: win_py35
+      CONDA_INSTALL_LOCN: "C:\\Miniconda3-x64"
     - CONFIG: win_py36
       CONDA_INSTALL_LOCN: "C:\\Miniconda3-x64"
     - CONFIG: win_py37
