@@ -1,0 +1,18 @@
+diff -Naur osqp-python-0.5.0.org/setup.py osqp-python-0.5.0/setup.py
+--- osqp-python-0.5.0.org/setup.py	2018-12-10 22:21:11.000000000 +0100
++++ osqp-python-0.5.0/setup.py	2020-01-12 16:40:47.896941034 +0100
+@@ -20,12 +20,12 @@
+ # Check if windows linux or mac to pass flag
+ if system() == 'Windows':
+     if sys.version_info.major == 3:
+-        cmake_args += ['-G', 'Visual Studio 14 2015']
++        cmake_args += ['-G', 'Visual Studio 16 2019', '-T', 'v140']
+     else:
+         cmake_args += ['-G', 'Visual Studio 9 2008']
+     # Differentiate between 32-bit and 64-bit
+     if sys.maxsize // 2 ** 32 > 0:
+-        cmake_args[-1] += ' Win64'
++        cmake_args.extend(['-A', 'x64'])
+     cmake_build_flags += ['--config', 'Release']
+     lib_name = 'osqp.lib'
+     lib_subdir = ['Release']

@@ -9,6 +9,8 @@ source:
   - url: https://github.com/oxfordcontrol/osqp-python/archive/v{{ version }}.tar.gz
     fn: osqp-python-{{ version }}.tar.gz
     sha256: 6061c34745a152c143c4d0875aeaa01042e7e383f41ffbdffbe06a55f5a7caeb
+    patches:
+      - setup-win.patch
   - url: https://github.com/oxfordcontrol/osqp/archive/v{{ version }}.tar.gz
     fn: osqp-{{ version }}.tar.gz
     sha256: e0932d1f7bc56dbe526bee4a81331c1694d94c570f8ac6a6cb413f38904e0f64
@@ -17,6 +19,7 @@ source:
     fn: qdldl-{{ qdldl_version }}.tar.gz
     sha256: a2c3a7d0c6a48b2fab7400fa8ca72a34fb1e3a19964b281c73564178f97afe54
     folder: osqp_sources/lin_sys/direct/qdldl/qdldl_sources
+
 
 build:
   number: 0
