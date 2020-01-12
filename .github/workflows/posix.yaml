@@ -21,6 +21,8 @@ jobs:
           sudo $CONDA/bin/conda install -q -n base anaconda-client conda-build
           $CONDA/bin/conda info --all
           $CONDA/bin/conda config --show
+      - name: Configure conda and conda-build
+        run: sudo ./setup-osx.sh
       - name: Build package
         run: sudo $CONDA/bin/conda-build -m build_config/${{ runner.os }}-${{ matrix.config }}.yaml ./recipe
       - name: Upload package
