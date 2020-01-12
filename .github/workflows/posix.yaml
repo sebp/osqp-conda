@@ -30,4 +30,4 @@ jobs:
         env:
           BINSTAR_TOKEN: ${{ secrets.BINSTAR_TOKEN }}
         run: $CONDA/bin/python3 upload_or_check_non_existence -m build_config/${{ runner.os }}-${{ matrix.config }}.yaml ./recipe sebp --channel=main
-        if: github.ref == 'master'
+        if: github.ref == 'refs/heads/master'
