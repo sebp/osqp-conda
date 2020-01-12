@@ -8,7 +8,7 @@ Conda package for osqp
 
 .. image:: https://github.com/sebp/osqp-conda/workflows/conda-build-windows/badge.svg?branch=master
   :target: https://github.com/sebp/scikit-survival-conda/actions
-   :alt: Build Status Windows
+  :alt: Build Status Windows
 
 This repository contains the `conda <https://conda.io/docs/user-guide/tasks/build-packages/>`_
 recipe for `osqp <https://pypi.org/project/osqp/>`_.
