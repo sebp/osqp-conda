@@ -34,3 +34,4 @@ jobs:
         run: |
           %CONDA%\python upload_or_check_non_existence -m build_config\${{ runner.os }}-${{ matrix.config }}.yaml recipe sebp --channel=main
         shell: cmd
+        if: github.ref == 'master'
