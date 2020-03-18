@@ -7,9 +7,6 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
         config: [py35, py36, py37, py38]
-        exclude:
-          - os: macos-latest
-            config: py38
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
