@@ -20,4 +20,3 @@ blas_impl:
 - mkl
 mkl:
 - 2019
-- 2020
