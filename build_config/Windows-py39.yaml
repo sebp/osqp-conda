@@ -3,13 +3,12 @@ c_compiler:
 cxx_compiler:
 - vs2017
 python:
-- '3.6'
+- '3.9'
 numpy:
-- '1.16'
+- '1.19'
 blas_impl:
 - mkl
 mkl:
-- 2019
 - 2020
 target_platform:
 - win-64
