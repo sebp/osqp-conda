@@ -6,5 +6,6 @@ blas_impl:
     - mkl
 mkl:
     - 2020
+    - 2021
 target_platform:
     - linux-64
