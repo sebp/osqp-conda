@@ -11,7 +11,7 @@ jobs:
         exclude:
           - os: windows-latest
             config: py36
-            mkl '2021'
+            mkl: '2021'
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
