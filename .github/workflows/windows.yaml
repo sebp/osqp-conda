@@ -7,6 +7,11 @@ jobs:
       matrix:
         os: [windows-latest]
         config: [py36, py37, py38, py39]
+        mkl: ['2020', '2021']
+        exclude:
+          - os: windows-latest
+            config: py36
+            mkl '2021'
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -26,7 +31,7 @@ jobs:
       - name: Build package
         run: |
           set "PATH=%CONDA%\\Scripts;%CONDA%\\Library\\bin;%PATH%"
-          conda-build -m build_config\${{ runner.os }}-${{ matrix.config }}.yaml recipe
+          conda-build -m build_config\${{ runner.os }}-${{ matrix.config }}-mkl${{ matrix.mkl }}.yaml recipe
         shell: cmd
       - name: Upload package
         env:

@@ -7,6 +7,14 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
         config: [py36, py37, py38, py39]
+        mkl: ['2020', '2021']
+        exclude:
+          - os: ubuntu-latest
+            config: py36
+            mkl: '2021'
+          - os: macos-latest
+            config: py36
+            mkl: '2021'
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -26,7 +34,7 @@ jobs:
         run: sudo ./setup-osx.sh
         if: runner.os == 'macOS'
       - name: Build package
-        run: $CONDA/bin/conda-build -m build_config/${{ runner.os }}-${{ matrix.config }}.yaml ./recipe
+        run: $CONDA/bin/conda-build -m build_config/${{ runner.os }}-${{ matrix.config }}-mkl${{ matrix.mkl }}.yaml ./recipe
       - name: Upload package
         env:
           BINSTAR_TOKEN: ${{ secrets.BINSTAR_TOKEN }}
