@@ -11,6 +11,5 @@ blas_impl:
 mkl:
 - 2019
 - 2020
-- 2021
 target_platform:
 - win-64

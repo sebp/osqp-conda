@@ -20,6 +20,5 @@ blas_impl:
 - mkl
 mkl:
 - 2019
-- 2021
 target_platform:
 - osx-64
