@@ -38,6 +38,6 @@ jobs:
           BINSTAR_TOKEN: ${{ secrets.BINSTAR_TOKEN }}
         run: |
           set "PATH=%CONDA%\\Scripts;%CONDA%\\Library\\bin;%PATH%"
-          %CONDA%\python upload_or_check_non_existence -m build_config\${{ runner.os }}-${{ matrix.config }}.yaml recipe sebp --channel=main
+          %CONDA%\python upload_or_check_non_existence -m build_config\${{ runner.os }}-${{ matrix.config }}-mkl${{ matrix.mkl }}.yaml recipe sebp --channel=main
         shell: cmd
         if: github.ref == 'refs/heads/master'
