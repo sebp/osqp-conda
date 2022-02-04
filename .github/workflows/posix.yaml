@@ -6,7 +6,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        config: [py36, py37, py38, py39]
+        config: [py36, py37, py38, py39, py310]
         mkl: ['2020', '2021']
         exclude:
           - os: ubuntu-latest
@@ -15,6 +15,12 @@ jobs:
           - os: macos-latest
             config: py36
             mkl: '2021'
+          - os: ubuntu-latest
+            config: py310
+            mkl: '2020'
+          - os: macos-latest
+            config: py310
+            mkl: '2020'
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout

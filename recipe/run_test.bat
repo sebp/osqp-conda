@@ -7,4 +7,4 @@ for /F "tokens=* USEBACKQ" %%F in (
   set TestsPath=%%F
 )
 
-python -m pytest %TestsPath% -k "not codegen and not update_matrices_tests"
+python -m pytest %TestsPath% -k "not codegen"
