@@ -26,6 +26,7 @@ jobs:
           conda config --set auto_update_conda false
           conda config --set show_channel_urls true
           conda config --set add_pip_as_python_dependency false
+          conda config --add channels sebp
           conda update -q -n base -c defaults conda
           conda install -q -n base anaconda-client conda-build
           conda info --all
