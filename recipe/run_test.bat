@@ -2,7 +2,7 @@
 echo on
 
 for /F "tokens=* USEBACKQ" %%F in (
-  `python -c "import osqp.tests; print(osqp.tests.__path__[0])`
+  `python -c "from os.path import join; import osqp; print(join(osqp.__path__[0], 'tests'))`
 ) do (
   set TestsPath=%%F
 )
