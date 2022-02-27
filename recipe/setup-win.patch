@@ -1,31 +1,28 @@
-diff -Naur osqp-python-0.5.0.org/setup.py osqp-python-0.5.0/setup.py
---- osqp-python-0.5.0.org/setup.py	2018-12-10 22:21:11.000000000 +0100
-+++ osqp-python-0.5.0/setup.py	2020-01-12 19:06:44.900685876 +0100
-@@ -20,12 +20,12 @@
+diff '--color=auto' -Naur osqp-0.6.2.post5.org/pyproject.toml osqp-0.6.2.post5/pyproject.toml
+--- osqp-0.6.2.post5.org/pyproject.toml	2022-01-07 17:45:44.000000000 +0100
++++ osqp-0.6.2.post5/pyproject.toml	2022-02-27 12:42:07.259317863 +0100
+@@ -1,5 +1,5 @@
+ [build-system]
+-requires = ["oldest-supported-numpy", "setuptools>=40.8.0", "wheel", "setuptools_scm>=6.2", "qdldl"]
++requires = ["oldest-supported-numpy", "setuptools>=40.8.0", "wheel", "setuptools_scm>=6.2"]
+ build-backend = "setuptools.build_meta"
+ 
+ [tool.setuptools_scm]
+diff '--color=auto' -Naur osqp-0.6.2.post5.org/setup.py osqp-0.6.2.post5/setup.py
+--- osqp-0.6.2.post5.org/setup.py	2022-01-07 17:45:44.000000000 +0100
++++ osqp-0.6.2.post5/setup.py	2022-02-27 12:43:17.210985378 +0100
+@@ -47,10 +47,12 @@
+ 
  # Check if windows linux or mac to pass flag
  if system() == 'Windows':
-     if sys.version_info.major == 3:
--        cmake_args += ['-G', 'Visual Studio 14 2015']
-+        cmake_args += ['-G', 'Visual Studio 16 2019', '-T', 'v140']
-     else:
-         cmake_args += ['-G', 'Visual Studio 9 2008']
+-    cmake_args += ['-G', 'Visual Studio 14 2015']
++    cmake_args += ['-G', 'Visual Studio 16 2019']
      # Differentiate between 32-bit and 64-bit
      if sys.maxsize // 2 ** 32 > 0:
 -        cmake_args[-1] += ' Win64'
 +        cmake_args.extend(['-A', 'x64'])
++    else:
++        cmake_args.extend(['-A', 'Win32'])
      cmake_build_flags += ['--config', 'Release']
      lib_name = 'osqp.lib'
      lib_subdir = ['Release']
-@@ -34,6 +34,12 @@
-     cmake_args += ['-G', 'Unix Makefiles']
-     lib_name = 'libosqp.a'
- 
-+if system() == 'Darwin':
-+    sysroot = os.environ['CONDA_BUILD_SYSROOT']
-+    target = os.environ['MACOSX_DEPLOYMENT_TARGET']
-+    cmake_args.extend(['-DCMAKE_OSX_SYSROOT={}'.format(sysroot),
-+                       '-DCMAKE_OSX_DEPLOYMENT_TARGET={}'.format(target)])
-+
- # Pass Python option to CMake and Python interface compilation
- cmake_args += ['-DPYTHON=ON']
- 
