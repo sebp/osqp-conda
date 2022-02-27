@@ -6,15 +6,8 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest]
-        config: [py36, py37, py38, py39, py310]
-        mkl: ['2020', '2021']
-        exclude:
-          - os: windows-latest
-            config: py36
-            mkl: '2021'
-          - os: windows-latest
-            config: py310
-            mkl: '2020'
+        config: [py37, py38, py39, py310]
+        mkl: ['2021']
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
