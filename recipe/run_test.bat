@@ -7,4 +7,6 @@ for /F "tokens=* USEBACKQ" %%F in (
   set TestsPath=%%F
 )
 
+copy /V /Y /B "%LIBRARY_BIN%\\mkl_rt.1.dll" "%LIBRARY_BIN%\\mkl_rt.dll"
+
 python -m pytest %TestsPath% -k "not codegen"
