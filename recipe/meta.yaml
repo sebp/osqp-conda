@@ -1,5 +1,5 @@
 {% set name = "osqp" %}
-{% set version = "0.6.2.post5" %}
+{% set version = "0.6.2.post8" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,13 +7,14 @@ package:
 
 source:
   - url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-    sha256: b2fa17aae42a7ed498ec261b33f262bb4b3605e7e8464062159d9fae817f0d61
-    patches:
-      - setup-win.patch
+    sha256: 23d6bae4a3612f60d5f652d0e5fa4b2ead507cabfff5d930d822057ae6ed6677
 
 build:
   number: 0
   script: "{{ PYTHON }} -m pip install . -vv"
+  script_env:
+    - CMAKE_GENERATOR='Visual Studio 16 2019' # [win]
+    - CMAKE_GENERATOR_PLATFORM='x64' # [win]
 
 requirements:
   build:
