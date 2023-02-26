@@ -1,0 +1,75 @@
+name: conda-build
+on: [push]
+
+jobs:
+  build-posix:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        config: [py38, py39, py310]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Miniconda
+        run: |
+          $CONDA/bin/conda config --set always_yes yes --set changeps1 no
+          $CONDA/bin/conda config --set auto_update_conda false
+          $CONDA/bin/conda config --set show_channel_urls true
+          $CONDA/bin/conda config --set add_pip_as_python_dependency false
+          $CONDA/bin/conda config --add channels sebp
+          sudo $CONDA/bin/conda update -q -n base conda
+          sudo $CONDA/bin/conda install -q -n base anaconda-client conda-build
+          sudo chown -R $USER $CONDA
+          $CONDA/bin/conda info --all
+          $CONDA/bin/conda config --show
+      - name: Configure conda and conda-build
+        run: sudo ./setup-osx.sh
+        if: runner.os == 'macOS'
+      - name: Build package
+        run: $CONDA/bin/conda-build -m build_config/${{ runner.os }}-${{ matrix.config }}.yaml ./recipe
+      - name: Upload package
+        env:
+          BINSTAR_TOKEN: ${{ secrets.BINSTAR_TOKEN }}
+        run: |
+          export PATH=$CONDA/bin:$PATH
+          $CONDA/bin/python3 upload_or_check_non_existence -m build_config/${{ runner.os }}-${{ matrix.config }}-mkl${{ matrix.mkl }}.yaml ./recipe sebp --channel=main
+        if: github.ref == 'refs/heads/master'
+
+  build-windows:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2019]
+        config: [py38, py39, py310]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Miniconda
+        run: |
+          set "PATH=%CONDA%\\Scripts;%CONDA%\\Library\\bin;%PATH%"
+          conda config --set always_yes yes --set changeps1 no
+          conda config --set auto_update_conda false
+          conda config --set show_channel_urls true
+          conda config --set add_pip_as_python_dependency false
+          conda config --add channels sebp
+          conda update -q -n base -c defaults conda
+          conda install -q -n base anaconda-client conda-build
+          conda info --all
+          conda config --show
+        shell: cmd
+      - name: Build package
+        run: |
+          set "PATH=%CONDA%\\Scripts;%CONDA%\\Library\\bin;%PATH%"
+          conda-build -m build_config\${{ runner.os }}-${{ matrix.config }}.yaml recipe
+        shell: cmd
+      - name: Upload package
+        env:
+          BINSTAR_TOKEN: ${{ secrets.BINSTAR_TOKEN }}
+        run: |
+          set "PATH=%CONDA%\\Scripts;%CONDA%\\Library\\bin;%PATH%"
+          %CONDA%\python upload_or_check_non_existence -m build_config\${{ runner.os }}-${{ matrix.config }}-mkl${{ matrix.mkl }}.yaml recipe sebp --channel=main
+        shell: cmd
+        if: github.ref == 'refs/heads/master'
