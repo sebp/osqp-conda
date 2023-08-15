@@ -1,5 +1,5 @@
 {% set name = "osqp" %}
-{% set version = "0.6.2.post8" %}
+{% set version = "0.6.3" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,7 +7,7 @@ package:
 
 source:
   - url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-    sha256: 23d6bae4a3612f60d5f652d0e5fa4b2ead507cabfff5d930d822057ae6ed6677
+    sha256: 03e460e683ec2ce0f839353ddfa3c4c8ffa509ab8cf6a2b2afbb586fa453e180
 
 build:
   number: 0
