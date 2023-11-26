@@ -19,6 +19,6 @@ numpy:
 blas_impl:
 - mkl
 mkl:
-- 2021
+- '2023'
 target_platform:
 - osx-64

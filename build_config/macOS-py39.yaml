@@ -15,10 +15,10 @@ macos_machine:
 python:
 - '3.9'
 numpy:
-- '1.20'
+- '1.21'
 blas_impl:
 - mkl
 mkl:
-- 2021
+- '2023'
 target_platform:
 - osx-64

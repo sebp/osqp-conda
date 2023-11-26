@@ -6,9 +6,5 @@ python:
 - '3.12'
 numpy:
 - '1.26'
-blas_impl:
-- mkl
-mkl:
-- 2021
 target_platform:
 - win-64

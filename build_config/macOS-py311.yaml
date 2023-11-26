@@ -17,8 +17,8 @@ python:
 numpy:
 - '1.23'
 blas_impl:
-- openblas
-openblas:
-- 0.3
+- mkl
+mkl:
+- '2023'
 target_platform:
 - osx-64
