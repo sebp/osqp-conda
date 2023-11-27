@@ -1,0 +1,13 @@
+diff --git a/osqp_sources/lin_sys/direct/pardiso/pardiso_loader.c b/osqp_sources/lin_sys/direct/pardiso/pardiso_loader.c
+index f435d8c0..1f808605 100644
+--- a/osqp_sources/lin_sys/direct/pardiso/pardiso_loader.c
++++ b/osqp_sources/lin_sys/direct/pardiso/pardiso_loader.c
+@@ -5,7 +5,7 @@
+ #include "constants.h"
+ 
+ #ifdef IS_WINDOWS
+-#define PARDISOLIBNAME "mkl_rt." SHAREDLIBEXT
++#define PARDISOLIBNAME "mkl_rt.2." SHAREDLIBEXT
+ #else
+ #define PARDISOLIBNAME "libmkl_rt." SHAREDLIBEXT
+ #endif
