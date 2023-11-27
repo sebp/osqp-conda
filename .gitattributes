@@ -1,0 +1,9 @@
+* text=auto
+
+*.patch binary
+*.diff binary
+meta.yaml text eol=lf
+build.sh text eol=lf
+bld.bat text eol=crlf
+run_test.sh text eol=lf
+run_test.bat text eol=crlf
