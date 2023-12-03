@@ -8,6 +8,10 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
         config: [py39, py310, py311, py312]
+        blas_impl: [mkl, openblas]
+        exclude:
+          - os: ubuntu-latest
+            blas_impl: openblas
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -29,13 +33,13 @@ jobs:
         run: sudo ./setup-osx.sh
         if: runner.os == 'macOS'
       - name: Build package
-        run: $CONDA/bin/conda-build -m build_config/${{ runner.os }}-${{ matrix.config }}.yaml ./recipe
+        run: $CONDA/bin/conda-build -m build_config/${{ runner.os }}-${{ matrix.config }}-${{ matrix.blas_impl }}.yaml ./recipe
       - name: Upload package
         env:
           BINSTAR_TOKEN: ${{ secrets.BINSTAR_TOKEN }}
         run: |
           export PATH=$CONDA/bin:$PATH
-          $CONDA/bin/python3 upload_or_check_non_existence -m build_config/${{ runner.os }}-${{ matrix.config }}.yaml ./recipe sebp --channel=main
+          $CONDA/bin/python3 upload_or_check_non_existence -m build_config/${{ runner.os }}-${{ matrix.config }}-${{ matrix.blas_impl }}.yaml ./recipe sebp --channel=main
         if: github.ref == 'refs/heads/master'
 
   build-windows:
@@ -44,6 +48,7 @@ jobs:
       matrix:
         os: [windows-2019]
         config: [py39, py310, py311, py312]
+        blas_impl: [mkl]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -65,13 +70,13 @@ jobs:
       - name: Build package
         run: |
           set "PATH=%CONDA%\\Scripts;%CONDA%\\Library\\bin;%PATH%"
-          conda-build -m build_config\${{ runner.os }}-${{ matrix.config }}.yaml recipe
+          conda-build -m build_config\${{ runner.os }}-${{ matrix.config }}-${{ matrix.blas_impl }}.yaml recipe
         shell: cmd
       - name: Upload package
         env:
           BINSTAR_TOKEN: ${{ secrets.BINSTAR_TOKEN }}
         run: |
           set "PATH=%CONDA%\\Scripts;%CONDA%\\Library\\bin;%PATH%"
-          %CONDA%\python upload_or_check_non_existence -m build_config\${{ runner.os }}-${{ matrix.config }}.yaml recipe sebp --channel=main
+          %CONDA%\python upload_or_check_non_existence -m build_config\${{ runner.os }}-${{ matrix.config }}-${{ matrix.blas_impl }}.yaml recipe sebp --channel=main
         shell: cmd
         if: github.ref == 'refs/heads/master'
